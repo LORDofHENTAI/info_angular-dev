@@ -1,9 +1,9 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SubOrder } from '../models/sub-order';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -72,7 +72,7 @@ export class OrderComponent implements OnInit {
   fruitCtrl = new FormControl();
   filteredFruits: Observable<string[]>;
   fruits: string[] = [];
-  allFruits: string[] = [' 01Bepx',' 01Hu3',' 02Bepx',' 03Bepx',' 04Bepx',' 05Hu3',' colona1',' D03Bepx',' Poddon',' Telezka','A0','A00','A001','A002','A003','A004','A005','A006','A008','A009','A010','A029','A030','A031','A032','A033','A034','B001'];
+  allFruits: string[] = [' 01Bepx', ' 01Hu3', ' 02Bepx', ' 03Bepx', ' 04Bepx', ' 05Hu3', ' colona1', ' D03Bepx', ' Poddon', ' Telezka', 'A0', 'A00', 'A001', 'A002', 'A003', 'A004', 'A005', 'A006', 'A008', 'A009', 'A010', 'A029', 'A030', 'A031', 'A032', 'A033', 'A034', 'B001'];
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
   /* */
@@ -92,7 +92,7 @@ export class OrderComponent implements OnInit {
       startWith(null),
       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
     );
-   }
+  }
 
   /* */
   add(event: MatChipInputEvent): void {
@@ -136,13 +136,13 @@ export class OrderComponent implements OnInit {
     this.titleService.setTitle(this.titleService.getTitle() + ' №' + this.orderId);
     let orderBodyReq = new OrderBodyReq(this.tokenService.getToken(), this.orderId)
     this.orderService.getSuborder(orderBodyReq).subscribe(response => {
-      if(response) {
+      if (response) {
         this.getData(response);
       }
     },
-    error => {
-      console.log(error);
-    });
+      error => {
+        console.log(error);
+      });
   }
 
   selectBarcode(barcode) {
@@ -169,24 +169,24 @@ export class OrderComponent implements OnInit {
     this.belpostData = null;
     let delPostRequest = new DelPostRequest(this.tokenService.getToken(), this.orderBodyAnsw.sub_num, barcode);
     this.orderService.orderDeleteBelpostBarcode(delPostRequest).subscribe(response => {
-      if(response.status === 'true') {
+      if (response.status === 'true') {
         this.snackbarService.openSnackBar('Штрихкод Белпочты удален', this.action,);
         let orderBodyReq = new OrderBodyReq(this.tokenService.getToken(), this.orderId)
         this.orderService.getSuborder(orderBodyReq).subscribe(response => {
-          if(response) {
+          if (response) {
             this.getData(response);
           }
         },
-        error => {
-          console.log(error);
-        });
+          error => {
+            console.log(error);
+          });
       }
       else this.snackbarService.openSnackBar('Операция не выполнена', this.action, this.styleNoConnect);
     },
-    error => {
-      console.log(error);
-      this.snackbarService.openSnackBar(this.messageNoConnect, this.action, this.styleNoConnect);
-    });
+      error => {
+        console.log(error);
+        this.snackbarService.openSnackBar(this.messageNoConnect, this.action, this.styleNoConnect);
+      });
   }
 
   getData(response: OrderBodyAnsw) {
@@ -198,38 +198,38 @@ export class OrderComponent implements OnInit {
   }
 
   getBelpostBarcodes(value: string) {
-    if(value)
+    if (value)
       this.belpostBarcodes = value.split(this.param).filter(i => i);
     else
       this.belpostBarcodes = [];
   }
 
-  onInputNewCount(event: string, element: OrderBody) : void {
-    if(event.length >= 0) {
+  onInputNewCount(event: string, element: OrderBody): void {
+    if (event.length >= 0) {
       element.count_g = event;
       element.changed = true;
       this.isDataChanged = this.checkDataChanged();
-      if(+element.count_g > +element.count_e)
+      if (+element.count_g > +element.count_e)
         element.count_g = element.count_e;
-      if(!element.count_g)
+      if (!element.count_g)
         element.count_g = '0';
     }
   }
 
   onFocusout(element) {
-    if(+element.count_g > +element.count_e)
+    if (+element.count_g > +element.count_e)
       element.count_g = element.count_e;
-    if(!element.count_g)
+    if (!element.count_g)
       element.count_g = '0';
   }
 
-  onClearCount(element: OrderBody) : void {
+  onClearCount(element: OrderBody): void {
     element.count_gСhange = element.count_g;
     element.changed = false;
     this.isDataChanged = this.checkDataChanged();
   }
 
-  onSaveChanges() : void {
+  onSaveChanges(): void {
     // this.dataSource.map(element => {
     //   if(element.count_gСhange)
     //     element.count_g = element.count_gСhange ? element.count_gСhange.toString() : '0';
@@ -238,7 +238,7 @@ export class OrderComponent implements OnInit {
     // });
 
     this.dataSource.map(element => {
-      if(Number(element.count_g) > Number(element.count_e))
+      if (Number(element.count_g) > Number(element.count_e))
         element.count_g = element.count_e;
       delete element.count_gСhange;
       delete element.changed;
@@ -249,20 +249,20 @@ export class OrderComponent implements OnInit {
     let order = new Changer(this.tokenService.getToken(), this.orderBodyAnsw);
 
     this.orderService.orderSaveChange(order).subscribe(response => {
-      if(response.status === 'Complate') {
+      if (response.status === 'Complate') {
         this.snackbarService.openSnackBar('Количество изменено', this.action);
       }
-      if(response.status === 'fail') {
+      if (response.status === 'fail') {
         this.snackbarService.openSnackBar('Перезагрузите страницу', this.action);
       }
     },
-    error => {
-      console.log(error);
-      this.snackbarService.openSnackBar(this.messageNoConnect, this.action, this.styleNoConnect);
-    });
+      error => {
+        console.log(error);
+        this.snackbarService.openSnackBar(this.messageNoConnect, this.action, this.styleNoConnect);
+      });
   }
 
-  checkDataChanged() : boolean {
+  checkDataChanged(): boolean {
     let result = this.dataSource.filter(d => d.changed === true);
     return result.length > 0
   }
@@ -270,38 +270,39 @@ export class OrderComponent implements OnInit {
   openStoragePrintBarcodeDialog() {
     const dialogRef = this.dialog.open(BarcodeInputCountFormComponent, {
       width: "300px",
-      data: {  },
+      data: {},
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result >= 1 && result <= 4) {
+      if (result >= 1 && result <= 4) {
         let belPostReq = new BelPostReq(this.tokenService.getToken(), this.orderBodyAnsw.sub_num, result)
         this.orderService.getBarcode(belPostReq).subscribe(response => {
-          if(response) {
+          if (response) {
             this.belPostAnsw = response;
             let t = timer(0, 100).subscribe(vl => {
               console.log(vl);
-              if(vl >= 10) {
+              if (vl >= 10) {
                 this.barcodePrint._elementRef.nativeElement.click();
                 t.unsubscribe();
                 let orderBodyReq = new OrderBodyReq(this.tokenService.getToken(), this.orderId)
                 this.orderService.getSuborder(orderBodyReq).subscribe(response => {
-                  if(response) {
+                  if (response) {
                     this.getData(response);
                   }
                 },
-                error => {
-                  console.log(error);
-                });
+                  error => {
+                    console.log(error);
+                  });
               }
             });
           }
         },
-        error => {
-          console.log(error);
-        });
+          error => {
+            console.log(error);
+          });
       }
     });
   }
+
 
   onPrintBelpost(code: string) {
     this.belpostData = { barcode: code, username: this.orderBodyAnsw.aboutClient.fIO, address: this.orderBodyAnsw.aboutClient.adress, num: this.orderBodyAnsw.num }

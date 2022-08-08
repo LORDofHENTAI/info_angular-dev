@@ -33,6 +33,7 @@ export class OrderService {
   urlToBitrix = this.urlOrder + '/oms/';
   urlSaveChange = this.urlOrder + '/change/';
   urlDelpost = this.urlOrder + '/delpost/';
+  urlEndOrder = this.urlOrder + '/endOrder/';
 
   constructor(private http: HttpClient) { }
 
@@ -90,5 +91,9 @@ export class OrderService {
 
   orderDeleteBelpostBarcode(data: DelPostRequest): Observable<Status> {
     return this.http.post<Status>(`${this.urlDelpost}`, data);
+  }
+
+  orderCompliteOrder(data:FindOrderReq): Observable<Status>{
+    return this.http.post<Status>(`${this.urlEndOrder}`, data);
   }
 }

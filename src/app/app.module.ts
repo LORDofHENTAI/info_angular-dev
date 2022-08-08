@@ -1,6 +1,6 @@
 
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -75,11 +75,11 @@ import { PrintBelpostBarcodeComponent } from './order-manager/dialog-windows/pri
     NgxPrintModule,
     NgScrollbarModule,
     ConfirmationPopoverModule.forRoot({
-      confirmButtonType: 'danger', 
+      confirmButtonType: 'danger',
     }),
   ],
   exports: [AngularMaterialModule],
-  providers: [    
+  providers: [
     Title,
     HttpClient,
     CookieService,
@@ -88,6 +88,7 @@ import { PrintBelpostBarcodeComponent } from './order-manager/dialog-windows/pri
     BarcodeInputCountFormComponent,
     ConfirmReturnProductComponent,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA],
 })
 export class AppModule { }

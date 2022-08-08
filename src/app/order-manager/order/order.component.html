@@ -1,6 +1,10 @@
 <h2 class="name"> {{client.fIO}} </h2>
-<ng-container *ngIf="client.adress === ' , , ,'"> <h3> Адрес: - </h3></ng-container>
-<ng-container *ngIf="client.adress !== ' , , ,'"> <h3> Адрес: {{client.adress}} </h3></ng-container>
+<ng-container *ngIf="client.adress === ' , , ,'">
+    <h3> Адрес: - </h3>
+</ng-container>
+<ng-container *ngIf="client.adress !== ' , , ,'">
+    <h3> Адрес: {{client.adress}} </h3>
+</ng-container>
 Заказ №{{orderBodyAnsw.num}} -
 <text [ngSwitch]="orderBodyAnsw.name">
     <ng-template ngSwitchCase="8"> Долгиновский </ng-template>
@@ -20,18 +24,16 @@
 <br>
 
 <div class="bt-group">
-<!-- (click)="onDecision(requestTask)" -->
+    <!-- (click)="onDecision(requestTask)" -->
     <!-- <button mat-stroked-button> Печать заказа </button> -->
     <button mat-stroked-button
         [printStyle]="{ th: {'border': '1px solid black'}, td: {'border': '1px solid black'}, table: {'border-collapse': 'collapse', 'width': '100%'}}"
-        printSectionId="print-order-section"
-        ngxPrint>
+        printSectionId="print-order-section" ngxPrint>
         <mat-icon>print</mat-icon>
     </button>
     <button mat-stroked-button #barcodePrint hidden
         [printStyle]="{ th: {'border': '1px solid black'}, td: {'border': '1px solid black'}, table: {'border-collapse': 'collapse', 'width': '100%'}}"
-        printSectionId="print-barcode-section"
-        ngxPrint>
+        printSectionId="print-barcode-section" ngxPrint>
         <img src="../../assets/barcode-icon.png" width="28" />
     </button>
     <button mat-stroked-button (click)="openStoragePrintBarcodeDialog()" *ngIf="orderBodyAnsw.belPost">
@@ -42,26 +44,16 @@
 <div class="form-inline" *ngIf="orderBodyAnsw.belPost">
     <span class="belpost">Штрихкод БЕЛПОЧТА:</span>
     <div class="list-img-box form-inline">
-        <div class="img-box" *ngFor="let barcode of belpostBarcodes" (mouseenter)="selectBarcode(barcode)" (mouseleave)="unSelectBarcode()">
-            <button mat-stroked-button class="container"
-            (mouseenter)="onPrintBelpost(barcode)"
-            [printStyle]="{ th: {'border': '1px solid black'}, td: {'border': '1px solid black'}, table: {'border-collapse': 'collapse', 'width': '100%'}}"
-            printSectionId="print-belpost-barcode-section"
-            ngxPrint>
+        <div class="img-box" *ngFor="let barcode of belpostBarcodes" (mouseenter)="selectBarcode(barcode)"
+            (mouseleave)="unSelectBarcode()">
+            <button mat-stroked-button class="container" (mouseenter)="onPrintBelpost(barcode)"
+                [printStyle]="{ th: {'border': '1px solid black'}, td: {'border': '1px solid black'}, table: {'border-collapse': 'collapse', 'width': '100%'}}"
+                printSectionId="print-belpost-barcode-section" ngxPrint>
                 <img [src]="imgSource + barcode" width="150" height="50">
-                <button
-                    id="bt-delete"
-                    mat-icon-button
-                    class="icon-close"
-                    *ngIf="selectedBarcode === barcode"
-                    mwlConfirmationPopover
-                    [popoverMessage]="'Вы действительно хотите <b>удалить</b> штрихкод?'"
-                    [confirmText]="'Да'"
-                    [cancelText]="'Нет'"
-                    placement="bottom"
-                    (click)="$event.stopPropagation();"
-                    (confirm)="onDelete(barcode)"
-                    (cancel)="cancelClicked = true; onCancel()">
+                <button id="bt-delete" mat-icon-button class="icon-close" *ngIf="selectedBarcode === barcode"
+                    mwlConfirmationPopover [popoverMessage]="'Вы действительно хотите <b>удалить</b> штрихкод?'"
+                    [confirmText]="'Да'" [cancelText]="'Нет'" placement="bottom" (click)="$event.stopPropagation();"
+                    (confirm)="onDelete(barcode)" (cancel)="cancelClicked = true; onCancel()">
                     <mat-icon>cancel</mat-icon>
                 </button>
             </button>
@@ -116,7 +108,9 @@
                 </mat-form-field> -->
 
                 <mat-form-field appearance="outline">
-                    <input autocomplete="off" matInput placeholder="Количество" [(ngModel)]="element.count_g" (input)="onInputNewCount($event.target.value, element)" (focusout)="onFocusout(element)" min="0" max="element.count_e">
+                    <input autocomplete="off" matInput placeholder="Количество" [(ngModel)]="element.count_g"
+                        (input)="onInputNewCount($event.target.value, element)" (focusout)="onFocusout(element)" min="0"
+                        max="element.count_e">
                     <!-- <mat-icon id="close" matSuffix *ngIf="element.count_g.length > 0" (click)="onClearCount(element);">close</mat-icon> -->
                 </mat-form-field>
 
@@ -128,43 +122,41 @@
     </table>
     <!---->
     <mat-form-field class="example-chip-list" appearance="fill">
-      <mat-label style="size: 0.5cm;">Размещение:</mat-label>
-      <mat-chip-list #chipList aria-label="Fruit selection">
-        <mat-chip
-          *ngFor="let fruit of fruits"
-          [selectable]="selectable"
-          [removable]="removable"
-          (removed)="remove(fruit)">
-          {{fruit}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-          <!--<button matChipRemove *ngIf="removable">
+        <mat-label style="size: 0.5cm;">Размещение:</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable"
+                (removed)="remove(fruit)">
+                {{fruit}}
+                <mat-icon matChipRemove>cancel</mat-icon>
+                <!--<button matChipRemove *ngIf="removable">
             <mat-icon>cancel</mat-icon>
           </button>-->
-        </mat-chip>
-        <input
-          placeholder="Добавить размещение..."
-          #fruitInput
-          [formControl]="fruitCtrl"
-          [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-          {{fruit}}
-        </mat-option>
-      </mat-autocomplete>
+            </mat-chip>
+            <input placeholder="Добавить размещение..." #fruitInput [formControl]="fruitCtrl" [matAutocomplete]="auto"
+                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                {{fruit}}
+            </mat-option>
+        </mat-autocomplete>
     </mat-form-field>
     <!---->
-    <button id="save" mat-stroked-button (click)="onSaveChanges()" [disabled]="!isDataChanged"> Сохранить изменения </button>
+    <button id="save" mat-stroked-button (click)="onSaveChanges()" [disabled]="!isDataChanged"> Сохранить изменения
+    </button>
+    <button id="endOrder" mat-stroked-button>Завершить заказ</button>
 </div>
 
 <div id="print-order-section" hidden>
     <!-- <app-order-print-form [data]="orderBodyAnsw"></app-order-print-form>   -->
     <h2 class="name">{{client.fIO}}</h2>
-    <ng-container *ngIf="client.adress"> <h3> Адрес: - </h3></ng-container>
-    <ng-container *ngIf="!client.adress"> <h3> Адрес: {{client.adress}} </h3></ng-container>
+    <ng-container *ngIf="client.adress">
+        <h3> Адрес: - </h3>
+    </ng-container>
+    <ng-container *ngIf="!client.adress">
+        <h3> Адрес: {{client.adress}} </h3>
+    </ng-container>
     Заказ №{{orderBodyAnsw.num}} -
     <text [ngSwitch]="orderBodyAnsw.name">
         <ng-template ngSwitchCase="8"> Долгиновский </ng-template>

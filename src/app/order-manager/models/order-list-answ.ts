@@ -1,7 +1,7 @@
 import { OrderHeader } from './order-header';
 import { ClientInfo } from './client-info';
 
-export class OrderListAnsw{
+export class OrderListAnsw {
     constructor(
         public id: string,
         public order: OrderHeader,
@@ -10,5 +10,6 @@ export class OrderListAnsw{
         public place: string,
         public info: string,
         public status: string,
-    ){}
+        public repeatStatus: boolean,
+    ) { }
 }
