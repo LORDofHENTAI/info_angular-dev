@@ -143,6 +143,7 @@ export class OrderComponent implements OnInit {
       error => {
         console.log(error);
       });
+    console.log();
   }
 
   selectBarcode(barcode) {
@@ -195,6 +196,7 @@ export class OrderComponent implements OnInit {
     this.client = this.orderBodyAnsw.aboutClient;
     this.dataSource = this.orderBodyAnsw.body;
     this.getBelpostBarcodes(this.orderBodyAnsw.postCode);
+    console.log(this.orderBodyAnsw);
   }
 
   getBelpostBarcodes(value: string) {
@@ -272,6 +274,7 @@ export class OrderComponent implements OnInit {
       width: "300px",
       data: {},
     });
+
     dialogRef.afterClosed().subscribe(result => {
       if (result >= 1 && result <= 4) {
         let belPostReq = new BelPostReq(this.tokenService.getToken(), this.orderBodyAnsw.sub_num, result)
@@ -315,5 +318,9 @@ export class OrderComponent implements OnInit {
 
     //   }
     // });
+  }
+
+  endOrder() {
+    this.snackbarService.openSnackBar('coming soon', this.action);
   }
 }

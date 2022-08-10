@@ -145,7 +145,8 @@
     <!---->
     <button id="save" mat-stroked-button (click)="onSaveChanges()" [disabled]="!isDataChanged"> Сохранить изменения
     </button>
-    <button id="endOrder" mat-stroked-button>Завершить заказ</button>
+    <button id="endOrder" mat-stroked-button (click)="endOrder()">Завершить
+        заказ</button>
 </div>
 
 <div id="print-order-section" hidden>
