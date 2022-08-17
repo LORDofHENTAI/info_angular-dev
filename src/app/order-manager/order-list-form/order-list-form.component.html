@@ -182,7 +182,7 @@
                 <th mat-header-cell *matHeaderCellDef> Отправлен повторно </th>
                 <td mat-cell *matCellDef="let element">
                     <div *ngIf="element.repeatStatus === 'True'">
-                        <mat-icon>repeat</mat-icon>
+                        <mat-icon style="user-select: none;">repeat</mat-icon>
                     </div>
                 </td>
             </ng-container>
