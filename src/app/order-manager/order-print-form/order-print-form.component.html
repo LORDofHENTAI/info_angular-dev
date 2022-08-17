@@ -1,11 +1,15 @@
 <h2 class="name">{{client.fIO}}</h2>
-<ng-container *ngIf="client.adress === ' , , ,'"> <h3> Адрес: - </h3></ng-container>
-<ng-container *ngIf="client.adress !== ' , , ,'"> <h3> Адрес: {{client.adress}} </h3></ng-container>
+<ng-container *ngIf="client.adress === ' , , ,'">
+    <h3> Адрес: - </h3>
+</ng-container>
+<ng-container *ngIf="client.adress !== ' , , ,'">
+    <h3> Адрес: {{client.adress}} </h3>
+</ng-container>
 Заказ №{{data.num}} -
 <text [ngSwitch]="data.name">
     <ng-template ngSwitchCase="8"> Долгиновский </ng-template>
     <ng-template ngSwitchCase="11"> Брест</ng-template>
-    <ng-template ngSwitchCase="22"> Каменогорская </ng-template>
+    <ng-template ngSwitchCase="22"> Каменногорская </ng-template>
     <ng-template ngSwitchCase="25"> Молодечно </ng-template>
     <ng-template ngSwitchCase="21"> Тимирязева </ng-template>
     <ng-template ngSwitchCase="31"> Диамант </ng-template>
