@@ -14,6 +14,7 @@ import { BelPostAnsw } from '../../models/bel-post-answ';
 import { Status } from 'src/app/common/models/status';
 import { Changer } from '../../models/changer';
 import { DelPostRequest } from '../../models/del-post-request';
+import { FindOrderByAdReq } from '../../models/find-order-by-ad-req';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class OrderService {
   urlOrder = environment.apiUrl + '/ishop';
   urlGetOders = this.urlOrder + '/orderlist/';
   urlOrderSearch = this.urlOrder + '/findorder/';
+  urlOrderSearchByAdres = this.urlOrder + '/findorderbyad/'
   urlGetSuborder = this.urlOrder + '/suborder/';
   urlToCassa = this.urlOrder + '/cassa/';
   urlPause = this.urlOrder + '/pause/';
@@ -43,6 +45,10 @@ export class OrderService {
 
   orderSearch(data: FindOrderReq): Observable<Array<OrderListAnsw>> {
     return this.http.post<any>(`${this.urlOrderSearch}`, data);
+  }
+
+  orderSearchByAdres(data: FindOrderByAdReq): Observable<Array<OrderListAnsw>> {
+    return this.http.post<any>(`${this.urlOrderSearchByAdres}`, data)
   }
 
   getSuborder(data: OrderBodyReq): Observable<OrderBodyAnsw> {
@@ -93,7 +99,7 @@ export class OrderService {
     return this.http.post<Status>(`${this.urlDelpost}`, data);
   }
 
-  orderCompliteOrder(data:FindOrderReq): Observable<Status>{
+  orderCompliteOrder(data: FindOrderReq): Observable<Status> {
     return this.http.post<Status>(`${this.urlEndOrder}`, data);
   }
 }

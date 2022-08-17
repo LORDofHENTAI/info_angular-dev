@@ -19,6 +19,7 @@ import { ConfirmReturnProductComponent } from '../dialog-windows/confirm-return-
 import { environment } from 'src/environments/environment';
 import { element } from 'protractor';
 import { ThrowStmt } from '@angular/compiler';
+import { FindOrderByAdReq } from '../models/find-order-by-ad-req';
 
 @Component({
   selector: 'app-order-list-form',
@@ -29,6 +30,8 @@ export class OrderListFormComponent implements OnInit {
 
   @Input() data: string;
   @Output() onChanged = new EventEmitter<Array<OrderListAnsw>>();
+
+
 
   @ViewChild(NgScrollbar) scrollbarRef: NgScrollbar;
 
@@ -85,6 +88,7 @@ export class OrderListFormComponent implements OnInit {
     private orderSearchService: OrderSearchService,
   ) {
     this.orderSearchService.events$.forEach(value => {
+
       this.searchOrder(value)
     });
     this.timerService.events$.forEach(value => {
@@ -171,16 +175,30 @@ export class OrderListFormComponent implements OnInit {
     if (searchValue.order) {
       if (searchValue.order && this.getShop(searchValue.shop) === this.data) {
         this.searchValue = searchValue;
-        let findOrderReq = new FindOrderReq(this.tokenService.getToken(), searchValue.order, this.data);
-        this.orderService.orderSearch(findOrderReq).subscribe(response => {
-          if (response) {
-            this.orderListAnsw = response;
-          }
-        },
-          error => {
-            console.log(error);
-            this.snackbarService.openSnackBar(this.messageNoConnect, this.action, this.styleNoConnect);
-          });
+        if (this.searchValue.check === false) {
+          let findOrderReq = new FindOrderReq(this.tokenService.getToken(), searchValue.order, this.data);
+          this.orderService.orderSearch(findOrderReq).subscribe(response => {
+            if (response) {
+              this.orderListAnsw = response;
+            }
+          },
+            error => {
+              console.log(error);
+              this.snackbarService.openSnackBar(this.messageNoConnect, this.action, this.styleNoConnect);
+            });
+        } else {
+          let findOrderByAd = new FindOrderByAdReq(this.tokenService.getToken(), searchValue.order, this.data);
+          this.orderService.orderSearchByAdres(findOrderByAd).subscribe(response => {
+            if (response) {
+              this.orderListAnsw = response;
+              console.log('>>>>>' + this.orderListAnsw);
+            }
+          },
+            error => {
+              console.log(error);
+              this.snackbarService.openSnackBar(this.messageNoConnect, this.action, this.styleNoConnect);
+            });
+        }
       }
     } else {
       this.loadData(null);

@@ -10,6 +10,6 @@ export class OrderListAnsw {
         public place: string,
         public info: string,
         public status: string,
-        public repeatStatus: boolean,
+        public repeatStatus: string,
     ) { }
 }

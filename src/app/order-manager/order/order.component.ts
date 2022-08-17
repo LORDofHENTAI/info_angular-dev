@@ -25,6 +25,7 @@ import { SnackbarService } from 'src/app/common/services/snackbar/snackbar.servi
 import { PrintBelpostBarcodeComponent } from '../dialog-windows/print-belpost-barcode/print-belpost-barcode.component';
 import { DelPostRequest } from '../models/del-post-request';
 
+
 export interface BelpostData {
   barcode: string,
   username: string,
@@ -253,6 +254,7 @@ export class OrderComponent implements OnInit {
     this.orderService.orderSaveChange(order).subscribe(response => {
       if (response.status === 'Complate') {
         this.snackbarService.openSnackBar('Количество изменено', this.action);
+
       }
       if (response.status === 'fail') {
         this.snackbarService.openSnackBar('Перезагрузите страницу', this.action);
